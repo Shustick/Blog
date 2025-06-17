@@ -1,0 +1,76 @@
+@import '../../styles/mixins.scss';
+.header {
+  width: 100%;
+  height: 80px;
+  padding: 0 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #ffffff;
+
+  &__title,
+  &__nav__signIn,
+  &__nav__signUp,
+  &__nav__author,
+  &__nav__logOut {
+    @include font-size-m;
+  }
+
+  &__title {
+    cursor: pointer;
+    padding: 8px 0;
+    text-decoration: none;
+    color: #000000d9;
+    &:hover {
+      color: #1890ff;
+      transition: 0.2s ease-out;
+    }
+  }
+
+  &__nav {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    &__signUp {
+      padding: 6px 18px 10px;
+    }
+
+    &__signIn {
+      padding-top: auto;
+      padding: 8px 18px 8px;
+      color: #000000d9;
+      &:hover {
+        color: #1890ff;
+        transition: 0.2s ease-out;
+      }
+    }
+
+    &__createArticle {
+      padding: 6px 10px;
+    }
+
+    &__author {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+
+      .author__image {
+        width: 46px;
+        height: 46px;
+        border-radius: 50%;
+      }
+    }
+
+    &__logOut {
+      padding: 6px 18px 10px;
+      border: 1px solid #000000bf;
+      border-radius: 5px;
+      &:hover {
+        color: #ffffff;
+        background-color: #000000bf;
+        transition: 0.2s ease-out;
+      }
+    }
+  }
+}

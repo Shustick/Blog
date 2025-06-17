@@ -1,0 +1,146 @@
+@import '../../styles/mixins.scss';
+
+.article {
+  max-width: 938px;
+  min-height: 140px;
+  background-color: #ffffff;
+  box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.15);
+  border-radius: 5px;
+
+  &__header {
+    padding: 15px 14px 24px 16px;
+    display: flex;
+    justify-content: space-between;
+    gap: 85px;
+
+    .header__mian {
+      display: grid;
+      grid-template-areas:
+        'title favoritesCount'
+        'tags tags'
+        'description description';
+      grid-template-columns: max-content 1fr;
+      align-items: center;
+      row-gap: 4px;
+      column-gap: 13px;
+
+      &__title {
+        grid-area: title;
+        @include font-size-sm;
+        font-size: 20px;
+        line-height: 28px;
+        color: #1890ff;
+        text-decoration: none;
+      }
+      &__titleLink {
+        text-decoration: none;
+        cursor: pointer;
+
+        &:hover {
+          color: #0d5293;
+          transition: 0.2s ease-out;
+        }
+      }
+
+      &__favoritesCount {
+        grid-area: favoritesCount;
+        justify-self: start;
+        display: flex;
+        width: fit-content;
+        height: fit-content;
+        justify-content: space-between;
+        gap: 5px;
+        align-items: center;
+
+        .favoritesCount__count {
+          @include font-size-sm;
+          cursor: default;
+        }
+      }
+
+      &__tags {
+        grid-area: tags;
+        display: flex;
+        gap: 8px;
+      }
+
+      &__tag {
+        width: fit-content;
+        height: fit-content;
+        padding: 2px 5px;
+        border: 1px solid rgba(0, 0, 0, 0.75);
+        border-radius: 2px;
+        @include font-size-sm;
+        line-height: 100%;
+
+        &:nth-child(even) {
+          border-color: rgba(0, 0, 0, 0.5);
+          color: rgba(0, 0, 0, 0.5);
+        }
+      }
+
+      .fullArticleTags {
+        margin-bottom: 12px;
+      }
+
+      &__description {
+        grid-area: description;
+        @include font-size-sm;
+      }
+    }
+
+    .header__aside {
+      display: grid;
+      grid-template-areas:
+        'authorName authorImage'
+        'createdDate authorImage';
+      grid-template-rows: max-content max-content;
+      align-items: center;
+      column-gap: 12px;
+
+      &__authorName {
+        grid-area: authorName;
+        align-self: end;
+        justify-self: end;
+        @include font-size-sm;
+        font-size: 18px;
+        line-height: 28px;
+        color: rgba(0, 0, 0, 0.85);
+      }
+
+      &__createdDate {
+        grid-area: createdDate;
+        align-self: start;
+        justify-self: end;
+        @include font-size-sm;
+        color: rgba(0, 0, 0, 0.5);
+        white-space: nowrap;
+      }
+
+      &__authorImage {
+        grid-area: authorImage;
+        width: 46px;
+        height: 46px;
+
+        .authorImage__icon {
+          width: 46px;
+          height: 46px;
+          border-radius: 50%;
+        }
+      }
+    }
+  }
+  &__main {
+    padding: 0 60px 24px 16px;
+    @include font-size-m;
+    color: #000000bf;
+  }
+}
+
+.fullArticle {
+  min-height: 807px;
+  margin-top: 26px;
+  margin-bottom: 64px;
+  margin-left: auto;
+  margin-right: auto;
+}

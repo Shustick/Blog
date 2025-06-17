@@ -1,0 +1,19 @@
+@mixin font-size-sm {
+  font-family: Inter;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 22px;
+  letter-spacing: 0;
+
+  color: #000000bf;
+}
+
+@mixin font-size-m {
+  font-family: Inter;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 28px;
+  letter-spacing: 0;
+
+  color: #000000bf;
+}

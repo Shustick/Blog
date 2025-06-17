@@ -1,0 +1,135 @@
+$bg: linear-gradient(90deg, #ebeef3 25%, #f8f8f8 50%, #ebeef3 75%);
+$bgSize: 200% 100%;
+$shimmer: shimmer 1.9s linear infinite;
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton {
+  max-width: 938px;
+  margin-top: 26px;
+  margin-left: auto;
+  margin-right: auto;
+
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+
+  &__articlesList {
+    max-width: 938px;
+    height: 140px;
+    padding: 15px 14px 24px 16px;
+
+    display: grid;
+    grid-template-areas:
+      'title author'
+      'tags author'
+      'description author';
+    grid-template-columns: 1fr max-content;
+    column-gap: 85px;
+
+    box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
+    background-color: #ffffff;
+  }
+
+  &__article {
+    max-width: 938px;
+    height: 807px;
+    padding: 15px 14px 24px 16px;
+
+    display: grid;
+    grid-template-areas:
+      'title author'
+      'tags author'
+      'description author'
+      'text text'
+      'text text';
+    grid-template-columns: 1fr max-content;
+    column-gap: 85px;
+
+    box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.15);
+    background-color: #ffffff;
+
+    &::after {
+      content: '';
+      display: inline-block;
+      grid-area: text;
+      width: 100%;
+      height: 640px;
+      margin-top: 25px;
+      border-radius: 5px;
+      background-color: #ebeef3;
+    }
+  }
+
+  &__title,
+  &__tags__tag,
+  &__description,
+  &__author,
+  &__author::after,
+  &__author::before,
+  &__article::after {
+    border-radius: 5px;
+
+    background: $bg;
+    background-size: $bgSize;
+    animation: $shimmer;
+  }
+
+  &__title {
+    grid-area: title;
+    width: 160px;
+    height: 28px;
+  }
+
+  &__tags {
+    grid-area: tags;
+    margin: 4px 0;
+    display: flex;
+    gap: 8px;
+    &__tag {
+      width: 38px;
+      height: 20px;
+    }
+  }
+
+  &__description {
+    grid-area: description;
+    max-width: 682px;
+    height: 45px;
+  }
+
+  &__author {
+    grid-area: author;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+
+    &::before {
+      content: '';
+      display: inline-block;
+      width: 60px;
+      height: 25px;
+      border-radius: 5px;
+      background-color: #ebeef3;
+      transform: translateX(-72px);
+    }
+
+    &::after {
+      content: '';
+      display: inline-block;
+      width: 81px;
+      height: 19px;
+      border-radius: 5px;
+      background-color: #ebeef3;
+      transform: translateX(-93px);
+    }
+  }
+}
