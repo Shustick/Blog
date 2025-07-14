@@ -1,5 +1,6 @@
-import type { SkeletonProps } from './Skeleton';
-import styles from './skeleton.module.scss';
+import type { SkeletonProps } from '../ArticleListSkeleton/ArticleListSkeleton';
+
+import styles from './ArticleSkeleton.module.scss';
 
 function ArticleSkeleton({ skeletonClass }: SkeletonProps) {
   return (

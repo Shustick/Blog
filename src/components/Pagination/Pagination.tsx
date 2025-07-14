@@ -8,9 +8,10 @@ import style from './pagination.module.scss';
 
 type TPagination = {
   maxVisiblePages: number;
+  isDisabledPagination?: boolean;
 };
 
-function Pagination({ maxVisiblePages }: TPagination) {
+function Pagination({ maxVisiblePages, isDisabledPagination }: TPagination) {
   const dispatch = useAppDispatch();
   const pageSize = useAppSelector(selectPageSize);
   const articlesCount = useAppSelector(selectArticlesCount);
@@ -27,14 +28,16 @@ function Pagination({ maxVisiblePages }: TPagination) {
   const windowStart = windowIndex * windowSize;
   const windowEnd = Math.min(windowStart + windowSize, pagesCount);
 
-  const pages = Array.from({ length: windowEnd - windowStart }, (_, i) => windowStart + i + 1);
+  const pages = !pagesCount
+    ? Array.from({ length: maxVisiblePages }, (_, i) => i + 1)
+    : Array.from({ length: windowEnd - windowStart }, (_, i) => windowStart + i + 1);
 
   return (
     <div className={style.pagination}>
       <button
         className={style.pagination__btn}
         onClick={() => onPageChange(Math.max(1, currentPage - 1))}
-        disabled={currentPage === 1}
+        disabled={currentPage === 1 || isDisabledPagination}
       >
         <Arrow rotation="prev" isDisabled={currentPage === 1} />
       </button>
@@ -44,7 +47,7 @@ function Pagination({ maxVisiblePages }: TPagination) {
           className={`${style.pagination__page} ${page === currentPage ? style.pagination__page__active : ''}`}
           key={page}
           onClick={() => onPageChange(page)}
-          disabled={page === currentPage}
+          disabled={page === currentPage || isDisabledPagination}
         >
           {page}
         </button>
@@ -53,7 +56,7 @@ function Pagination({ maxVisiblePages }: TPagination) {
       <button
         className={style.pagination__btn}
         onClick={() => onPageChange(Math.min(pagesCount, currentPage + 1))}
-        disabled={currentPage === pagesCount}
+        disabled={currentPage === pagesCount || isDisabledPagination}
       >
         <Arrow rotation="next" isDisabled={currentPage === pagesCount} />
       </button>

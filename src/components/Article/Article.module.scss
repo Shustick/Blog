@@ -11,6 +11,7 @@
     padding: 15px 14px 24px 16px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     gap: 85px;
 
     .header__mian {
@@ -30,10 +31,10 @@
         font-size: 20px;
         line-height: 28px;
         color: #1890ff;
-        text-decoration: none;
+        word-break: break-all;
+        max-width: 640px;
       }
       &__titleLink {
-        text-decoration: none;
         cursor: pointer;
 
         &:hover {
@@ -45,6 +46,8 @@
       &__favoritesCount {
         grid-area: favoritesCount;
         justify-self: start;
+        align-self: start;
+        transform: translateY(2px);
         display: flex;
         width: fit-content;
         height: fit-content;
@@ -62,6 +65,7 @@
         grid-area: tags;
         display: flex;
         gap: 8px;
+        flex-wrap: wrap;
       }
 
       &__tag {
@@ -90,13 +94,13 @@
     }
 
     .header__aside {
+      align-self: flex-start;
       display: grid;
       grid-template-areas:
         'authorName authorImage'
         'createdDate authorImage';
-      grid-template-rows: max-content max-content;
+      grid-template-rows: max-content max-content max-content;
       align-items: center;
-      column-gap: 12px;
 
       &__authorName {
         grid-area: authorName;
@@ -106,6 +110,8 @@
         font-size: 18px;
         line-height: 28px;
         color: rgba(0, 0, 0, 0.85);
+
+        word-break: break-all;
       }
 
       &__createdDate {
@@ -119,13 +125,52 @@
 
       &__authorImage {
         grid-area: authorImage;
+        justify-self: end;
         width: 46px;
         height: 46px;
+        margin-left: 12px;
 
         .authorImage__icon {
           width: 46px;
           height: 46px;
           border-radius: 50%;
+        }
+      }
+
+      &__btn {
+        margin-top: 30px;
+        margin-bottom: 6px;
+        padding: 6px 18px;
+        border-radius: 5px;
+        border: 1px solid #f5222d;
+
+        font-family: Inter;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 22px;
+        letter-spacing: 0px;
+        vertical-align: middle;
+
+        &--red {
+          color: #f5222d;
+
+          &:hover {
+            background-color: #f5222d;
+            color: #ffffff;
+            transition: 0.2s ease-out;
+          }
+        }
+
+        &--green {
+          margin-left: 12px;
+          border-color: #52c41a;
+          color: #52c41a;
+
+          &:hover {
+            background-color: #52c41a;
+            color: #ffffff;
+            transition: 0.2s ease-out;
+          }
         }
       }
     }

@@ -1,0 +1,48 @@
+@import '../../../styles/mixins.scss';
+
+.skeleton {
+  width: 384px;
+  height: 499.6px;
+  padding: 48px 32px;
+  margin: 59px auto;
+
+  display: flex;
+  flex-direction: column;
+  gap: 21px;
+
+  @include form-container;
+
+  &__title,
+  &__submitBtn,
+  &__inputs__input,
+  &__inputs__input::before {
+    width: 100%;
+    height: 40px;
+    border-radius: 5px;
+
+    @include skeletonAnimation;
+  }
+
+  &__title {
+    width: 150px;
+    margin: 0 auto;
+    margin-bottom: 21px;
+  }
+
+  &__inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 30.8px;
+
+    &__input {
+      &::before {
+        content: '';
+        display: inline-block;
+        position: relative;
+        width: 88px;
+        height: 16px;
+        top: -17px;
+      }
+    }
+  }
+}

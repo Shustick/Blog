@@ -1,0 +1,117 @@
+@import '../../styles/mixins.scss';
+
+.form {
+  width: 384px;
+  height: min-content;
+  padding: 48px 32px;
+  margin: 59px auto;
+
+  display: flex;
+  flex-direction: column;
+  gap: 21px;
+
+  @include form-container;
+
+  &__legend {
+    font-family: Roboto;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 28px;
+    letter-spacing: 0;
+    text-align: center;
+    color: #262626;
+  }
+
+  &__fieldset {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  &__label {
+    font-family: Roboto;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    letter-spacing: 0;
+    vertical-align: middle;
+
+    color: #262626;
+    cursor: pointer;
+  }
+
+  &__checkbox {
+    width: 100%;
+    padding-top: 8px;
+    border-top: 1px solid #e8e8e8;
+
+    &__input {
+      position: absolute;
+      z-index: -10;
+      opacity: 0;
+      width: 1px;
+      height: 1px;
+    }
+
+    &__label {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+      justify-content: flex-start;
+
+      cursor: pointer;
+
+      font-family: Roboto;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 22px;
+      letter-spacing: 0;
+      color: #595959;
+
+      &::before {
+        content: '';
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        margin-top: 3px;
+
+        border-radius: 2px;
+        border: 1px solid #d9d9d9;
+      }
+    }
+
+    &__input:checked + &__label::before {
+      border: 1px solid #1890ff;
+      background: #1890ff url('../../assets/icons/check.svg') 50% 50% no-repeat;
+    }
+
+    &__error {
+      font-family: Roboto;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 22px;
+      letter-spacing: 0;
+
+      color: #f5222d;
+    }
+  }
+
+  &__footer {
+    &__text {
+      margin-top: 8px;
+
+      font-family: Roboto;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 20px;
+      letter-spacing: 0;
+      text-align: center;
+
+      color: #8c8c8c;
+    }
+
+    &__link {
+      color: #1890ff;
+    }
+  }
+}

@@ -1,7 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-// import { RootState } from '../../app/store';
-
 import { fetchArticlesAPI } from './articlesApi';
 import type { IArticle, IArticlesResponse } from './articlesType';
 
@@ -10,8 +8,6 @@ interface ArticlesState {
   isLoading: boolean;
   error: string | null;
   articlesCount: number;
-  // pageSize: number;
-  // currentPage: number;
 }
 
 const initialState: ArticlesState = {
@@ -19,8 +15,6 @@ const initialState: ArticlesState = {
   isLoading: false,
   error: null,
   articlesCount: 0,
-  // pageSize: 5,
-  // currentPage: 1,
 };
 
 export const fetchArticles = createAsyncThunk<IArticlesResponse, { pageSize: number; currentPage: number }>(
@@ -45,13 +39,12 @@ const articlesSlice = createSlice({
         state.isLoading = false;
         state.articles = action.payload.articles;
         if (state.articlesCount !== action.payload.articlesCount) {
-          console.log('articlesCount updated:', state.articlesCount, '→', action.payload.articlesCount);
           state.articlesCount = action.payload.articlesCount;
         }
       })
       .addCase(fetchArticles.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = action.error.message || 'Ошибка загрузки';
+        state.error = action.error.message || 'Load Error';
       });
   },
 });

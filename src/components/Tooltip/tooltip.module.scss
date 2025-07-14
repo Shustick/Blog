@@ -1,0 +1,129 @@
+.tooltipContainer {
+  position: absolute;
+  transform: translateX(90px) translateY(70px);
+
+  width: 240px;
+  height: 104px;
+  border-radius: 4px;
+  z-index: 10;
+  box-shadow: 0px 2px 8px 0px #00000026;
+}
+.tooltip {
+  position: absolute;
+  z-index: 10;
+  padding: 12px 16px;
+  border-radius: 4px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  background-color: #ffffff;
+
+  &__arrow {
+    position: absolute;
+    z-index: 1;
+    display: inline-block;
+    left: -6px;
+    top: 12px;
+    transform: rotate(45deg);
+
+    width: 12px;
+    height: 12px;
+
+    background-color: #ffffff;
+    box-shadow: 0px 2px 8px 0px #00000026;
+  }
+
+  &__textContainer {
+    display: flex;
+    gap: 9px;
+
+    &__icon {
+      width: 14px;
+      height: 14px;
+      padding-top: 2px;
+    }
+
+    &__text {
+      font-family: Roboto;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 22px;
+      letter-spacing: 0px;
+
+      color: #595959;
+    }
+  }
+  &__error {
+    font-family: Roboto;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    letter-spacing: 0;
+
+    color: #f5222d;
+  }
+  &__BtnContainer {
+    align-self: flex-end;
+    display: flex;
+    gap: 8px;
+
+    &__btn {
+      padding: 1px 8px;
+      border-radius: 4px;
+
+      font-family: Roboto;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 22px;
+      letter-spacing: 0px;
+      text-align: center;
+      vertical-align: middle;
+
+      &:disabled {
+        cursor: default;
+      }
+      &--gray {
+        border: 1px solid #d9d9d9;
+        background-color: #ffffff;
+        color: #595959;
+
+        &:not(:disabled):hover {
+          border-color: #d9d9d9;
+          box-shadow: 0px 0px 3px 0px #d9d9d9;
+          transition: 0.3s ease-out;
+        }
+      }
+
+      &--blue {
+        width: 39px;
+        height: 24px;
+        background-color: #1890ff;
+        color: #ffffff;
+
+        &:not(:disabled):hover {
+          box-shadow: 0px 0px 3px 0px #1890ff;
+          transition: 0.3s ease-out;
+        }
+      }
+
+      &__loader {
+        margin-top: 3px;
+        display: inline-block;
+        width: 14px;
+        height: 14px;
+        border: 2px solid #ffffff;
+        border-top-color: transparent;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    }
+  }
+}

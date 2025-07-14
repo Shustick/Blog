@@ -1,26 +1,6 @@
-$bg: linear-gradient(90deg, #ebeef3 25%, #f8f8f8 50%, #ebeef3 75%);
-$bgSize: 200% 100%;
-$shimmer: shimmer 1.9s linear infinite;
-
-@keyframes shimmer {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
-  }
-}
+@import '../../../styles/mixins.scss';
 
 .skeleton {
-  max-width: 938px;
-  margin-top: 26px;
-  margin-left: auto;
-  margin-right: auto;
-
-  display: flex;
-  flex-direction: column;
-  gap: 26px;
-
   &__articlesList {
     max-width: 938px;
     height: 140px;
@@ -78,9 +58,7 @@ $shimmer: shimmer 1.9s linear infinite;
   &__article::after {
     border-radius: 5px;
 
-    background: $bg;
-    background-size: $bgSize;
-    animation: $shimmer;
+    @include skeletonAnimation;
   }
 
   &__title {

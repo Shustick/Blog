@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 import ArticlesList from '../components/ArticlesList';
 import Pagination from '../components/Pagination';
-import Skeleton from '../components/Skeleton';
+import Skeleton from '../components/Skeleton/ArticleListSkeleton/ArticleListSkeleton';
 import { useAppDispatch, useAppSelector } from '../hooks/reduxHooks';
 import { fetchArticles } from '../store/features/articles/articlesSlice';
 import { selectArticles, selectArticlesError, selectArticlesLoading } from '../store/features/articles/selectors';
@@ -23,14 +23,12 @@ const ArticlesListPage = () => {
   }, [dispatch, pageSize, currentPage]);
 
   if (isLoading) return <Skeleton skeletonClass="skeleton__articlesList" />;
-  if (error) return <div>Ошибка: {error}</div>;
-
-  console.log(articles);
+  if (error) return <div>Error: {error}</div>;
 
   return (
     <>
       <ArticlesList articles={articles} />
-      <Pagination maxVisiblePages={5} />
+      <Pagination maxVisiblePages={5} isDisabledPagination={isLoading} />
     </>
   );
 };
