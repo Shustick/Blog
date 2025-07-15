@@ -1,11 +1,11 @@
-import { useForm, useFieldArray } from 'react-hook-form';
+import { useForm, useFieldArray, type UseFormSetError } from 'react-hook-form';
 
 import Input from '../Input';
 import SubmitButton from '../SubmitButton';
 
 import styles from './articleForm.module.scss';
 
-interface ArticleFormValues {
+export interface ArticleFormValues {
   title: string;
   description: string;
   body: string;
@@ -13,7 +13,7 @@ interface ArticleFormValues {
 }
 
 interface ArticleFormProps {
-  onSubmit: (values: ArticleFormValues, setError: any) => Promise<void>;
+  onSubmit: (values: ArticleFormValues, setError: UseFormSetError<ArticleFormValues>) => Promise<void>;
   isLoading: boolean;
   isError: string | null;
   initialValues?: ArticleFormValues;

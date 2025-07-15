@@ -5,6 +5,7 @@ import { CustomForm } from '../components/Form/Form';
 import { useAppDispatch, useAppSelector } from '../hooks/reduxHooks';
 import { registerUser } from '../store/features/auth/authSlice';
 import { selectAuthIsLoading } from '../store/features/auth/selectors';
+import { isErrorWithMessage } from '../utils/types';
 
 type SignUpFormValues = {
   username: string;
@@ -21,22 +22,24 @@ const SignUpPage = () => {
     try {
       await dispatch(registerUser(values)).unwrap();
       history.push('/');
-    } catch (err: any) {
-      type ServerErrors = Record<string, string>;
-      const serverErrors: ServerErrors = JSON.parse(err.message);
+    } catch (err: unknown) {
+      if (isErrorWithMessage(err)) {
+        type ServerErrors = Record<string, string>;
+        const serverErrors: ServerErrors = JSON.parse(err.message);
 
-      Object.entries(serverErrors).forEach(([field, message]) => {
-        if (field === 'username') {
-          message = `"${values.username}" ${message}`;
-        }
-        if (field === 'email') {
-          message = `"${values.email}" ${message}`;
-        }
-        setError(field as keyof typeof values, {
-          type: 'server',
-          message,
+        Object.entries(serverErrors).forEach(([field, message]) => {
+          if (field === 'username') {
+            message = `"${values.username}" ${message}`;
+          }
+          if (field === 'email') {
+            message = `"${values.email}" ${message}`;
+          }
+          setError(field as keyof typeof values, {
+            type: 'server',
+            message,
+          });
         });
-      });
+      }
     }
   };
   return <CustomForm<SignUpFormValues> formMode="signUp" onSubmit={handleSubmit} isLoading={isLoading} />;

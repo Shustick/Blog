@@ -1,5 +1,12 @@
 import { type ReactNode } from 'react';
-import { useForm, type UseFormSetError, type FieldValues, type DefaultValues } from 'react-hook-form';
+import {
+  useForm,
+  type UseFormSetError,
+  type FieldValues,
+  type DefaultValues,
+  type Path,
+  type RegisterOptions,
+} from 'react-hook-form';
 import { Link } from 'react-router-dom';
 
 import Input from '../Input';
@@ -13,7 +20,7 @@ interface Props<T extends FieldValues> {
   formMode: FormMode;
   onSubmit: (values: T, setError: UseFormSetError<T>) => void;
   initialValues?: T;
-  isLoading?: boolean;
+  isLoading: boolean;
 }
 
 export function CustomForm<T extends FieldValues>({ formMode, onSubmit, initialValues, isLoading }: Props<T>) {
@@ -67,7 +74,7 @@ export function CustomForm<T extends FieldValues>({ formMode, onSubmit, initialV
       <legend className={styles.form__legend}>{legends[formMode]}</legend>
       <fieldset className={styles.form__fieldset}>
         {fields.map((field, index) => {
-          const validationRules: Record<string, any> = {};
+          const validationRules: RegisterOptions<T, Path<T>> = {};
 
           if (field.required) {
             validationRules.required = 'Required field';
@@ -76,7 +83,7 @@ export function CustomForm<T extends FieldValues>({ formMode, onSubmit, initialV
                 return 'Field cannot be empty or contain only spaces';
               }
               if (field.matchField) {
-                const compareValue = watch(field.matchField!);
+                const compareValue = watch(field.matchField as Path<T>);
                 if (value !== compareValue) {
                   return 'Passwords must match';
                 }
@@ -85,7 +92,7 @@ export function CustomForm<T extends FieldValues>({ formMode, onSubmit, initialV
             };
           } else if (field.matchField) {
             validationRules.validate = (value: string) => {
-              const compareValue = watch(field.matchField!);
+              const compareValue = watch(field.matchField as Path<T>);
               return value === compareValue || 'Passwords must match';
             };
           }
@@ -102,7 +109,7 @@ export function CustomForm<T extends FieldValues>({ formMode, onSubmit, initialV
             };
           if (field.pattern) validationRules.pattern = { value: field.pattern, message: 'Invalid format' };
 
-          const fieldRegister = register(field.name, validationRules);
+          const fieldRegister = register(field.name as Path<T>, validationRules);
           const error = errors[field.name];
           return (
             <div key={field.name}>
@@ -130,7 +137,7 @@ export function CustomForm<T extends FieldValues>({ formMode, onSubmit, initialV
             className={styles.form__checkbox__input}
             id="agreement"
             type="checkbox"
-            {...register(agreementField.name, {
+            {...register(agreementField.name as Path<T>, {
               required: agreementField.required ? 'You must agree' : false,
             })}
           />
