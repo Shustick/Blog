@@ -60,5 +60,3 @@ const Routes = () => (
 );
 
 export default Routes;
-// createArticlePage
-//`/articles/${article.slug}/edit`

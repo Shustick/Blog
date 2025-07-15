@@ -105,7 +105,6 @@ export const editProfileFields: FieldConfig[] = [
     maxLengthAtr: 250,
   },
 ];
-//https://www.m24.ru/b/d/nBkSUhL2hFElnsizJb6BrNOp2Z318Ji-miDHnvyDoGuQYX7XByXLjCdwu5tI-BaO-42NvWWBK8AqGfS8kjIzIymM8G1N_xHb1A=AacUOr4T8ge73-pJlJbA0Q.jpg
 export interface AgreementConfig {
   name: 'agreement';
   label: string;

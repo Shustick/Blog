@@ -43,24 +43,6 @@
         }
       }
 
-      &__favoritesCount {
-        grid-area: favoritesCount;
-        justify-self: start;
-        align-self: start;
-        transform: translateY(2px);
-        display: flex;
-        width: fit-content;
-        height: fit-content;
-        justify-content: space-between;
-        gap: 5px;
-        align-items: center;
-
-        .favoritesCount__count {
-          @include font-size-sm;
-          cursor: default;
-        }
-      }
-
       &__tags {
         grid-area: tags;
         display: flex;

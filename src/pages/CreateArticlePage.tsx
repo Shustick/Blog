@@ -25,7 +25,6 @@ const CreateArticlePage = () => {
     } catch (err: any) {
       type ServerErrors = Record<string, string>;
       const serverErrors: ServerErrors = JSON.parse(err.message);
-      console.log(serverErrors);
 
       Object.entries(serverErrors).forEach(([field, message]) => {
         setError(field as keyof typeof values, {

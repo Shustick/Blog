@@ -1,8 +1,6 @@
-import type { IArticlesResponse } from './articlesType';
+import type { IArticle, IArticlesResponse } from './articlesType';
 
 const API_URL = 'https://blog-platform.kata.academy/api';
-//'https://blog-platform.kata.academy/api/articles'      GET статьи
-// /articles?limit=500
 
 export const fetchArticlesAPI = async ({
   pageSize,
@@ -13,12 +11,28 @@ export const fetchArticlesAPI = async ({
 }): Promise<IArticlesResponse> => {
   const offset = (currentPage - 1) * pageSize;
 
-  // console.log(`current: ${currentPage}, size: ${pageSize}, offset: ${offset}`);
+  const token = localStorage.getItem('token');
+  const res = await fetch(`${API_URL}/articles?limit=${pageSize}&offset=${offset}`, {
+    headers: {
+      'Content-Type': 'application/json',
+      ...(token ? { Authorization: `Token ${token}` } : {}),
+    },
+  });
 
-  const res = await fetch(`${API_URL}/articles?limit=${pageSize}&offset=${offset}`);
-  if (!res.ok) throw new Error('Ошибка загрузки статей');
-  // const reult = await res.json();
-  // console.log(reult);
+  if (!res.ok) throw new Error('Loading Articles Error');
 
+  return res.json();
+};
+
+export const fetchArticleBySlug = async (slug: string): Promise<{ article: IArticle }> => {
+  const token = localStorage.getItem('token');
+  const res = await fetch(`${API_URL}/articles/${slug}`, {
+    headers: {
+      'Content-Type': 'application/json',
+      ...(token ? { Authorization: `Token ${token}` } : {}),
+    },
+  });
+
+  if (!res.ok) throw new Error('Loading Article Error');
   return res.json();
 };

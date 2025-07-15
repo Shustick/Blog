@@ -1,0 +1,30 @@
+@import '../../styles/mixins.scss';
+
+.button {
+  grid-area: favoritesCount;
+  justify-self: start;
+  align-self: start;
+  transform: translateY(2px);
+  display: flex;
+  width: fit-content;
+  height: fit-content;
+  justify-content: space-between;
+  gap: 5px;
+  align-items: center;
+  cursor: default;
+  &:not(:disabled):hover {
+    cursor: pointer;
+
+    .button__icon {
+      transform: scale(1.2);
+    }
+  }
+
+  &__icon {
+    width: 16px;
+    height: 16px;
+  }
+  &__count {
+    @include font-size-sm;
+  }
+}

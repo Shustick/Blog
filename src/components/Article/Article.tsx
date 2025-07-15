@@ -1,14 +1,17 @@
 import { format } from 'date-fns';
 import { useState } from 'react';
+import Markdown from 'react-markdown';
 import { Link, useHistory } from 'react-router-dom';
 
 import defaultImage from '../../assets/authorImage.png';
-import { Heart } from '../../assets/icons/Heart';
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
 import type { IArticle } from '../../store/features/articles/articlesType';
 import { selectUserName } from '../../store/features/auth/selectors';
 import { deleteArticle } from '../../store/features/deleteArticle/deleteArticleSlice';
 import { selectDeleteArticleIsError, selectDeleteArticleIsLoading } from '../../store/features/deleteArticle/selectors';
+import { favoriteApi } from '../../store/features/favorite/favoriteApi';
+import { unFavoriteApi } from '../../store/features/favorite/Unfavorite';
+import FavoriteButton from '../FavoriteButton';
 import PrivateContent from '../PrivateContent';
 import Tooltip from '../Tooltip';
 
@@ -27,6 +30,9 @@ function Article({ article, isFull = false }: ArticleProps) {
   const isErrorDeleteArticle = useAppSelector(selectDeleteArticleIsError);
   const [imageSrc, setImageSrc] = useState(article.author.image || defaultImage);
   const [isOpenedTooltip, setIsOpenedTooltip] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(article.favorited);
+  const [favoritesCount, setFavoritesCount] = useState(article.favoritesCount);
+  const [isDisabledFavorite, setIsDisabledFavorite] = useState(false);
 
   const handleOpenTooltip = () => {
     setIsOpenedTooltip((prev) => !prev);
@@ -37,6 +43,26 @@ function Article({ article, isFull = false }: ArticleProps) {
 
     if (deleteArticle.fulfilled.match(result)) {
       history.push('/');
+    }
+  };
+
+  const handleFavorite = async (slug: string) => {
+    const optimisticFavorite = !isFavorite;
+    const optimisticCount = favoritesCount + (optimisticFavorite ? 1 : -1);
+
+    setIsFavorite(optimisticFavorite);
+    setFavoritesCount(optimisticCount);
+    setIsDisabledFavorite(true);
+
+    try {
+      const res = optimisticFavorite ? await favoriteApi(slug) : await unFavoriteApi(slug);
+      setIsFavorite(res.article.favorited);
+      setFavoritesCount(res.article.favoritesCount);
+      setIsDisabledFavorite(false);
+    } catch (e) {
+      setIsFavorite(isFavorite);
+      setFavoritesCount(favoritesCount);
+      console.log(e);
     }
   };
 
@@ -69,10 +95,12 @@ function Article({ article, isFull = false }: ArticleProps) {
               {article.title.trim() ? article.title : 'No Title'}
             </Link>
           )}
-          <button className={styles.header__mian__favoritesCount}>
-            <Heart />
-            <span className={styles.favoritesCount__count}>{article.favoritesCount}</span>
-          </button>
+          <FavoriteButton
+            disabled={!userName || isDisabledFavorite}
+            favoritesCount={favoritesCount}
+            isFavorite={isFavorite}
+            handleFavorite={() => handleFavorite(article.slug)}
+          />
           {tags.length ? (
             <ul className={`${isFull ? styles.fullArticleTags : ''} ${styles.header__mian__tags}`}>{tags}</ul>
           ) : null}
@@ -122,7 +150,7 @@ function Article({ article, isFull = false }: ArticleProps) {
       </div>
       {isFull ? (
         <div className={styles.article__main}>
-          <p>{article.body.trim() ? article.body : 'No Text'}</p>
+          <Markdown>{article.body.trim() ? article.body : 'No Text'}</Markdown>
         </div>
       ) : null}
     </div>

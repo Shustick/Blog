@@ -1,18 +1,13 @@
-import { useEffect, type ReactNode } from 'react';
+import { type ReactNode } from 'react';
 import { useForm, type UseFormSetError, type FieldValues, type DefaultValues } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 
 import Input from '../Input';
 import SubmitButton from '../SubmitButton';
 
-import { formConfigs, type FieldConfig } from './form-configs';
+import { formConfigs } from './form-configs';
 import styles from './form.module.scss';
 export type FormMode = 'signIn' | 'signUp' | 'editProfile';
-
-// interface Props {
-//   formMode: FormMode;
-//   onSubmit: (values: Record<string, any>) => void;
-// }
 
 interface Props<T extends FieldValues> {
   formMode: FormMode;
@@ -21,18 +16,6 @@ interface Props<T extends FieldValues> {
   isLoading?: boolean;
 }
 
-// export function CustomForm({ formMode, onSubmit }: Props) {
-//   const { fields, agreementField } = formConfigs[formMode];
-//   const {
-//     register,
-//     handleSubmit,
-//     formState: { errors },
-//     watch,
-//     setError,
-//     clearErrors,
-//   } = useForm<Record<string, any>>({
-//     mode: 'onChange',
-//   });
 export function CustomForm<T extends FieldValues>({ formMode, onSubmit, initialValues, isLoading }: Props<T>) {
   const { fields, agreementField } = formConfigs[formMode];
   const {

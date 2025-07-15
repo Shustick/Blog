@@ -1,21 +1,13 @@
 const API_URL = 'https://blog-platform.kata.academy/api';
 
-export interface ArticleData {
-  title: string;
-  description: string;
-  body: string;
-  tagList?: string[];
-}
-
-export const createArticleAPI = async (articleData: ArticleData) => {
+export const unFavoriteApi = async (slug: string) => {
   const token = localStorage.getItem('token');
-  const res = await fetch(`${API_URL}/articles`, {
-    method: 'POST',
+  const res = await fetch(`${API_URL}/articles/${slug}/favorite`, {
+    method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Token ${token}`,
     },
-    body: JSON.stringify({ article: articleData }),
   });
 
   if (!res.ok) {
@@ -23,5 +15,6 @@ export const createArticleAPI = async (articleData: ArticleData) => {
     const errorMessage = `Failed to load resource: the server responded with a status of ${statusText}`;
     throw new Error(errorMessage);
   }
+
   return res.json();
 };

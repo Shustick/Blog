@@ -6,6 +6,7 @@ import Skeleton from '../components/Skeleton/ArticleListSkeleton/ArticleListSkel
 import { useAppDispatch, useAppSelector } from '../hooks/reduxHooks';
 import { fetchArticles } from '../store/features/articles/articlesSlice';
 import { selectArticles, selectArticlesError, selectArticlesLoading } from '../store/features/articles/selectors';
+import { selectUser } from '../store/features/auth/selectors';
 import { selectCurrentPage, selectPageSize } from '../store/features/pagination/selectors';
 
 const ArticlesListPage = () => {
@@ -18,9 +19,11 @@ const ArticlesListPage = () => {
   const pageSize = useAppSelector(selectPageSize);
   const currentPage = useAppSelector(selectCurrentPage);
 
+  const isAuthenticated = useAppSelector(selectUser);
+
   useEffect(() => {
     dispatch(fetchArticles({ pageSize, currentPage }));
-  }, [dispatch, pageSize, currentPage]);
+  }, [dispatch, pageSize, currentPage, isAuthenticated]);
 
   if (isLoading) return <Skeleton skeletonClass="skeleton__articlesList" />;
   if (error) return <div>Error: {error}</div>;
